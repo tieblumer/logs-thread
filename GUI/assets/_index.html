@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<title>LOGS-THREAD</title>
+		<link rel="stylesheet" href="/main.css">
+		<script src="/utils.js"></script>
+		<script src="/custom.js"></script>
+		<script src="/customCombo.js"></script>
+		<script src="/customLog.js"></script>
+		<script src="/customViewer.js"></script>
+	</head>
+	<body>
+		<script>/* GLOBAL_VARS */</script>
+		<div id="titleDiv">
+			<span><b>LOGS-THREAD GUI</b><span><time-groups></time-groups>
+		</div>
+		<div id="groupsDiv">
+			/* GROUPS */
+		</div>
+		<div id="buttonDiv">
+			<action-button id="loadLogsButton">Load logs</action-button><input id="logsPerPage" value=50>
+		</div>
+		<logs-pagination id="upperPageDiv">
+			<action-button action="first">First Page</action-button><action-button action="prev">Previous Page</action-button><action-button action="next">Next Page</action-button>
+		</logs-pagination>
+		<logs-holder id="logsHolder">
+			
+		</logs-holder>
+		<logs-pagination id="pageDiv">
+			<action-button action="first">First Page</action-button><action-button action="prev">Previous Page</action-button><action-button action="next">Next Page</action-button>
+		</logs-pagination>
+		<log-viewer>
+			<log-title>LOG VIEWER</log-title>
+			<log-json></log-json>
+		</log-viewer>
+		<script src="/main.js"></script>
+	</body>
+</html>

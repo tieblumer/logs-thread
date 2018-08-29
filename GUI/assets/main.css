@@ -1,0 +1,248 @@
+html,body{
+	font-family: helvetica,arial,sans-serif;
+	font-size: 12px;
+	margin: 0px;
+	background-color: #e7eaf5;
+}
+
+/* UI ELEMENTS */
+
+time-groups select{
+	height: 20px;
+    border-radius: 0px;
+    float: right; 
+}
+#titleDiv{
+    background-color: #6c81a9;
+    color: white;
+    padding: 10px;
+    margin-bottom: 1px;
+    border-top: 1px solid #98beff;
+    border-bottom: 1px solid #3e5584;
+}
+#groupsDiv{
+	padding-left: 1px;
+	position: relative;
+	z-index: 1;
+}
+#buttonDiv{
+	margin: 15px 0px -24px;
+}
+action-button{
+    border: solid 1px #b1c7ef;
+    border-radius: 7px;
+    padding: 5px 10px;
+    color: white;
+    user-select: none;
+    cursor: pointer;
+    background-color: #6b80a9;
+    margin: 5px;
+}
+#logsPerPage{
+    width: 40px;
+    text-align: center;
+    padding: 4px 0px;
+    border-radius: 5px;
+    border: solid 1px #6a7fa9;
+}
+/* COMBO */
+
+group-filter{
+    position: relative;
+	display: inline-block;
+    text-align: center;
+    vertical-align: top;
+    width: 200px;
+    margin: 0px 4px 4px 0px;
+    cursor: pointer;
+    user-select: none;
+}
+group-display{
+    border: 1px #a1b5d8 solid;
+    box-shadow: 2px 4px 10px rgba(0,0,0,.1);
+    border-radius: 0px 0px 5px 5px;
+    background-color: white;
+	display:block;
+}
+group-holder{
+	height: 0px;
+	display:block;
+}
+group-combo{
+    border: 1px #a1b5d8 solid;
+    box-shadow: 2px 4px 10px rgba(0,0,0,.1);
+    border-radius: 0px 0px 5px 5px;
+    background-color: white;
+	display:block;
+}
+
+display-title{
+	display: block;
+    font-size: 10px;
+    text-align: left;
+    width: 0px;
+    height: 0px;
+    margin: 2px;
+    margin-bottom: 14px;
+}
+display-content{
+	display:block;
+	margin-bottom: 4px;
+}
+
+combo-icon{
+	color: white;
+    background-color: #6d82a9;
+    font-size: 10px;
+    width: 32px;
+    height: 16px;
+    border-radius: 100px;
+    line-height: 16px;
+    display: inline-block;
+    right: -20px;
+    margin: 5px;
+}
+combo-icon.close{
+    position: relative;
+	float: right;
+	margin: 0px;
+	margin-left: -16px;
+}
+combo-icon:hover{
+	background-color: #415a88;
+}
+
+
+group-title{
+    padding: 10px 30px;
+    border-bottom: 1px #9bacd2 solid;
+    display: block;
+    background-color: #8198c1;
+    color: white;
+}
+group-options{
+	display: block;
+	padding: 0px 0px 0px 0px;
+	max-height: 300px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+group-option{
+    display: block;
+    padding: 5px 10px;
+    border-bottom: 1px #9bacd2 solid;
+    color: #5071ab;
+    font-weight: lighter;
+    background-color: #e5eeff;
+}
+group-option.selected{
+    background-color: #9fb5dc;
+    color: white;
+    font-weight: lighter;
+}
+group-buttons{
+    /*border: 1px #a1b5d8 solid;
+	border-top: 0px;*/
+    border-radius: 0px 0px 5px 5px;
+    /*background-color: white;*/
+	display:block;	
+}
+
+check-option{
+	width: 7px;
+    height: 7px;
+    border-radius: 10px;
+    border: #a4b9e0 1px solid;
+    background-color: #b9cbec;
+    position: relative;
+    float: left;
+    top: 5px;
+    margin-right: 10px;
+}
+check-option.selected{
+	background-color: #ffffff;
+    border-color: #c9d4e8;
+}
+
+/* SUMMARY */
+
+log-summary{
+	display: block;
+    margin: 5px;
+    border: solid 1px #b2c7ef;
+    border-radius: 5px;
+    user-select: none;
+    cursor: pointer;
+	padding:5px 5px 5px 0px;
+	background-color: white;
+}
+log-summary.header{
+	background-color: #3e5584;
+}
+
+
+log-tab{
+	display: inline-block;
+    background-color: #eaf2ff;
+    padding: 6px 0px 6px .5%;
+    border-radius: 5px;
+    margin-left: .5%;
+    vertical-align: middle;
+	word-break: break-word;
+}
+
+log-tab.header{
+	background-color: white;
+	color: #3e5584;
+	font-weight: 600;
+}
+log-tab.error{
+	background-color: #fbe0e0;
+    color: #f52828;
+    font-weight: 600;
+}
+log-tab.tie{
+	background-color: orange;
+    color: yellow;
+    font-weight: 600;
+}
+
+/* PAGINATION */
+logs-pagination{
+	text-align: center;
+    display: block;
+    padding: 10px;
+}
+
+/* LOG VIEWER */
+
+log-viewer{
+	display:none;
+    position: fixed;
+    background-color: rgba(255,255,255,.95);
+    width: 90vw;
+    height: 90vh;
+    margin: 5vh 5vw;
+    top: 0px;
+    left: 0px;
+    border-radius: 10px;
+    border: 2px solid #3e5584;
+    box-shadow: 2px 4px 10px rgba(0,0,0,.1);
+	z-index: 111111;
+}
+log-title{
+	display:block;
+	background-color:#3e5584;
+	text-align: center;
+	padding:5px;
+	color: white;
+	margin-bottom:10px;
+	font-weight: 600;
+    border-radius: 6px 6px 0px 0px;
+}
+log-json{
+	white-space: pre;
+    overflow: auto;
+    height: calc(90vh - 40px);
+    display: block;
+}

@@ -1,0 +1,126 @@
+<html>
+	<head>
+		<title>LOGS-THREAD</title>
+		<link rel="stylesheet" href="/main.css">
+		<script src="/utils.js"></script>
+		<script src="/custom.js"></script>
+		<script src="/customCombo.js"></script>
+		<script src="/customLog.js"></script>
+		<script src="/customViewer.js"></script>
+	</head>
+	<body>
+		<script>window.logsThread = {
+		groups:["type", "level", "importance", "developer", "team"],
+		customGroups:["developer", "team"]
+	}</script>
+		<div id="titleDiv">
+			<span><b>LOGS-THREAD GUI</b><span><time-groups></time-groups>
+		</div>
+		<div id="groupsDiv">
+			<group-filter label="type">
+		<group-display>
+			<display-title>TYPE</display-title>
+			<display-content></display-content>
+		</group-display>
+		<group-holder>
+			<group-combo>
+				<group-title>TYPE</group-title>
+				<group-options>
+					<group-option value="note" checked="false"></group-option>
+<group-option value="unexpected" checked="false"></group-option>
+<group-option value="login" checked="false"></group-option> 
+				</group-options>
+				<group-buttons>
+				</group-buttons>
+			</group-combo>
+		</group-holder>
+	</group-filter><group-filter label="level">
+		<group-display>
+			<display-title>LEVEL</display-title>
+			<display-content></display-content>
+		</group-display>
+		<group-holder>
+			<group-combo>
+				<group-title>LEVEL</group-title>
+				<group-options>
+					<group-option value="error" checked="false"></group-option>
+<group-option value="warn" checked="false"></group-option>
+<group-option value="log" checked="false"></group-option> 
+				</group-options>
+				<group-buttons>
+				</group-buttons>
+			</group-combo>
+		</group-holder>
+	</group-filter><group-filter label="importance">
+		<group-display>
+			<display-title>IMPORTANCE</display-title>
+			<display-content></display-content>
+		</group-display>
+		<group-holder>
+			<group-combo>
+				<group-title>IMPORTANCE</group-title>
+				<group-options>
+					<group-option value="high" checked="false"></group-option>
+<group-option value="normal" checked="false"></group-option>
+<group-option value="low" checked="false"></group-option> 
+				</group-options>
+				<group-buttons>
+				</group-buttons>
+			</group-combo>
+		</group-holder>
+	</group-filter><group-filter label="developer">
+		<group-display>
+			<display-title>DEVELOPER</display-title>
+			<display-content></display-content>
+		</group-display>
+		<group-holder>
+			<group-combo>
+				<group-title>DEVELOPER</group-title>
+				<group-options>
+					<group-option value="Tie" checked="false"></group-option>
+<group-option value="Tomas" checked="false"></group-option>
+<group-option value="Sergio" checked="false"></group-option>
+<group-option value="Jesus" checked="false"></group-option> 
+				</group-options>
+				<group-buttons>
+				</group-buttons>
+			</group-combo>
+		</group-holder>
+	</group-filter><group-filter label="team">
+		<group-display>
+			<display-title>TEAM</display-title>
+			<display-content></display-content>
+		</group-display>
+		<group-holder>
+			<group-combo>
+				<group-title>TEAM</group-title>
+				<group-options>
+					<group-option value="developers" checked="false"></group-option>
+<group-option value="analytics" checked="false"></group-option>
+<group-option value="support" checked="false"></group-option> 
+				</group-options>
+				<group-buttons>
+				</group-buttons>
+			</group-combo>
+		</group-holder>
+	</group-filter>
+		</div>
+		<div id="buttonDiv">
+			<action-button id="loadLogsButton">Load logs</action-button><input id="logsPerPage" value=50>
+		</div>
+		<logs-pagination id="upperPageDiv">
+			<action-button action="first">First Page</action-button><action-button action="prev">Previous Page</action-button><action-button action="next">Next Page</action-button>
+		</logs-pagination>
+		<logs-holder id="logsHolder">
+			
+		</logs-holder>
+		<logs-pagination id="pageDiv">
+			<action-button action="first">First Page</action-button><action-button action="prev">Previous Page</action-button><action-button action="next">Next Page</action-button>
+		</logs-pagination>
+		<log-viewer>
+			<log-title>LOG VIEWER</log-title>
+			<log-json></log-json>
+		</log-viewer>
+		<script src="/main.js"></script>
+	</body>
+</html>
