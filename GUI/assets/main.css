@@ -248,10 +248,23 @@ log-thread{
     display: inline-block;
 	overflow: auto;
 }
-log-json{
+json-holder{
+	display: inline-block;
+    width: calc(60vw - 1px);
+	height: calc(90vh - 40px);
+    overflow: auto;
+}
+json-label{
+	border-top: 1px solid #3e5584;
+    color: #c9d4e8;
+    background-color: #6a7fa9;
+    display: block;
+    padding: 5px;
+}
+json-body{
 	white-space: pre;
     overflow: auto;
-    display: inline-block;
+    display: block;
 	padding: 10px;
 }
 thread-title{
@@ -262,7 +275,6 @@ thread-title{
     padding: 5px;
 }
 thread-line{
-	vertical-align: top;
     width: calc(100% - 10px);
     border-right: 1px solid #3e5584;
     background-color: #c9d4e8;

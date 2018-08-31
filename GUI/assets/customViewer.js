@@ -1,5 +1,6 @@
-/* global HTMLReadyElement */
+/* global HTMLReadyElement, prettyDate */
 let threadViewer;
+let jsonHolder;
 
 class LogViewer extends HTMLReadyElement {
 	constructor() {
@@ -16,6 +17,7 @@ class LogViewer extends HTMLReadyElement {
 		this.closeFunction = e => this.closeWindow(e);
 		document.addEventListener("click", this.closeWindow);
 		threadViewer.removeChildren();
+		jsonHolder.removeChildren();
 		const initDate = new Date(info.date);
 		info.thread.forEach(log => {
 			const entry = document.createElement("thread-title");
@@ -31,7 +33,32 @@ class LogViewer extends HTMLReadyElement {
 		delete cloned.thread;
 		delete cloned.method;
 		delete cloned.path;
-		this.json.showJSON(cloned);
+
+		const time = {
+			startedAt: prettyDate(new Date(cloned.date), true),
+			finishedAt: prettyDate(new Date(cloned.finish), true)
+		};
+		delete cloned.date;
+		delete cloned.finish;
+		jsonHolder.showInfo("time", time);
+
+		if (cloned.query) {
+			jsonHolder.showPropertyAndDelete("query", cloned, "query");
+		}
+
+		if (cloned.body) {
+			jsonHolder.showPropertyAndDelete("body", cloned, "body");
+		}
+
+		if (cloned.debug) {
+			jsonHolder.showPropertyAndDelete("debug", cloned, "debug");
+		}
+
+		if (cloned.response) {
+			jsonHolder.showPropertyAndDelete("response", cloned, "response");
+		}
+
+		jsonHolder.showInfo("others", cloned);
 	}
 	closeWindow(event) {
 		let target = event.target;
@@ -50,15 +77,45 @@ class LogViewer extends HTMLReadyElement {
 }
 customElements.define("log-viewer", LogViewer);
 
-class LogJSON extends HTMLElement {
+class JSONHolder extends HTMLElement {
+	constructor() {
+		super();
+		jsonHolder = this;
+	}
+
+	removeChildren() {
+		while (this.lastChild) {
+			this.removeChild(this.lastChild);
+		}
+	}
+	showPropertyAndDelete(title, log, property) {
+		this.showInfo(title, log[property]);
+		delete log[property];
+	}
+	showInfo(title, info) {
+		const viewer = document.createElement("json-viewer");
+		this.appendChild(viewer);
+		viewer.showJSON(title, info);
+		return viewer;
+	}
+}
+customElements.define("json-holder", JSONHolder);
+
+class JSONViewer extends HTMLReadyElement {
 	constructor() {
 		super();
 	}
-	showJSON(log) {
-		this.innerHTML = JSON.stringify(log, undefined, "    ");
+	async showJSON(title, info) {
+		await this.isReady;
+		this.label = document.createElement("json-label");
+		this.body = document.createElement("json-body");
+		this.appendChild(this.label);
+		this.appendChild(this.body);
+		this.label.innerHTML = title;
+		this.body.innerHTML = JSON.stringify(info, undefined, "    ");
 	}
 }
-customElements.define("log-json", LogJSON);
+customElements.define("json-viewer", JSONViewer);
 
 class ThreadViewer extends HTMLElement {
 	constructor() {

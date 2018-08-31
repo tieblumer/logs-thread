@@ -230,5 +230,3 @@ Example of custom settings:
 	}
 }
 ```
-
-# logs-thread

@@ -34,17 +34,15 @@ function ajax(url, data) {
 
 const dayFirst = new Date(2000, 0, 30).toLocaleDateString().charAt(0) === "3";
 
-function prettyDate(date) {
-	/*const iso = date.toISOString().split("T");
-	let parts = iso[0]
-		.slice(2)
-		.split("-")
-		.reverse();
+function prettyDate(date, showMilli) {
+	const pretty = date.toLocaleString();
 
-	if (!dayFirst) {
-		parts = [parts[1], parts[0], parts[2]];
-	}
-	const year = parts.join("/");
-	return year + " " + iso[1].split(".")[0];*/
-	return date.toLocaleString()
+	if (!showMilli) return pretty;
+
+	const insertAt = pretty.lastIndexOf(":") + 3;
+	let mili = date.getMilliseconds();
+
+	while (mili.length < 3) mili = "0" + mili;
+	const withMilli = pretty.substr(0, insertAt) + "." + mili + pretty.substr(insertAt);
+	return withMilli;
 }
