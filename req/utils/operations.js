@@ -59,7 +59,7 @@ function sum(values) {
 function merge(values) {
 	const list = flat(values);
 	const value = {};
-	list.forEach(item => mergeObjects(value, item));
+	list.forEach(item => mergeObjects(item, value));
 	return value;
 }
 

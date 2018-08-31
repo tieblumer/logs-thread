@@ -1,6 +1,6 @@
 {
   "name": "logs-thread",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This express utility creates log threads in a db and displays them in a HTML GUI. ",
   "main": "index.js",
   "scripts": {

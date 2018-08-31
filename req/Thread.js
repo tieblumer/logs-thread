@@ -76,7 +76,7 @@ class Thread {
 			} else if (instruction === "stack") {
 				flat.thread = this.logs.map(log => ({
 					date: log.date,
-					msg: log.message,
+					msg: log.message || log.type + " log",
 					stack: log.stack
 				}));
 			}
@@ -88,7 +88,7 @@ class Thread {
 			flat[groupName] = operations[group.overlap](values, group.options);
 		}
 
-		flat.debug = operations.merge(this.logs.map(log => log.debug));
+		flat.debug = operations.merge(this.logs.map(log => log.debug), {});
 		flat.message = this.message || operations.last(this.logs.map(log => log.message));
 		return flat;
 	}

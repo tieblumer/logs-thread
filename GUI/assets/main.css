@@ -221,7 +221,6 @@ log-viewer{
     position: fixed;
     background-color: rgba(255,255,255,.95);
     width: 90vw;
-    height: 90vh;
     margin: 5vh 5vw;
     top: 0px;
     left: 0px;
@@ -229,6 +228,7 @@ log-viewer{
     border: 2px solid #3e5584;
     box-shadow: 2px 4px 10px rgba(0,0,0,.1);
 	z-index: 111111;
+	overflow: hidden;
 }
 log-title{
 	display:block;
@@ -236,13 +236,37 @@ log-title{
 	text-align: center;
 	padding:5px;
 	color: white;
-	margin-bottom:10px;
 	font-weight: 600;
     border-radius: 6px 6px 0px 0px;
+}
+log-thread{
+	vertical-align: top;
+    width: 30vw;
+    height: calc(90vh - 40px);
+    border-right: 1px solid #3e5584;
+    background-color: #c9d4e8;
+    display: inline-block;
+	overflow: auto;
 }
 log-json{
 	white-space: pre;
     overflow: auto;
-    height: calc(90vh - 40px);
+    display: inline-block;
+	padding: 10px;
+}
+thread-title{
+	border-top: 1px solid #3e5584;
+    color: #c9d4e8;
+    background-color: #6a7fa9;
     display: block;
+    padding: 5px;
+}
+thread-line{
+	vertical-align: top;
+    width: calc(100% - 10px);
+    border-right: 1px solid #3e5584;
+    background-color: #c9d4e8;
+    color: #6a7fa9;
+	padding: 5px 0px 5px 10px;
+	display:block;
 }
