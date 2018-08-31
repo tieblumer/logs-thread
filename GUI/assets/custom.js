@@ -80,3 +80,16 @@ class TimeGroups extends HTMLReadyElement {
 	}
 }
 customElements.define("time-groups", TimeGroups);
+
+let dateTranslator;
+
+class DateTranslator extends HTMLElement {
+	constructor() {
+		super();
+		dateTranslator = this;
+	}
+	fromISOString(ISOString) {
+		this.innerHTML = new Date(ISOString).toLocaleString();
+	}
+}
+customElements.define("date-translator", DateTranslator);

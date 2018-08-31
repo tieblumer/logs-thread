@@ -26,7 +26,9 @@ time-groups select{
 	z-index: 1;
 }
 #buttonDiv{
-	margin: 15px 0px -24px;
+	margin: 15px 0px 10px;
+    background-color: #cfd8e6;
+    padding: 10px;
 }
 action-button{
     border: solid 1px #b1c7ef;
@@ -44,6 +46,24 @@ action-button{
     padding: 4px 0px;
     border-radius: 5px;
     border: solid 1px #6a7fa9;
+}
+#logsBefore{
+    width: 170px;
+    text-align: left;
+    padding: 4px 4px;
+    border-radius: 5px;
+    border: solid 1px #6a7fa9;
+	display:none;
+	margin-right: 4px;
+}
+date-translator{
+    width: 170px;
+    text-align: left;
+    padding: 4px 4px;
+    border-radius: 5px;
+    border: solid 1px #6a7fa9;
+	display:none;
+
 }
 /* COMBO */
 

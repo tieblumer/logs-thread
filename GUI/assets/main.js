@@ -1,12 +1,27 @@
-/* global ajax */
-document.getElementById("loadLogsButton").addEventListener("mousedown", () => loadLogs());
+/* global ajax, prettyDate, dateTranslator*/
+document
+	.getElementById("loadLogsButton")
+	.addEventListener("mousedown", () => loadLogsAndHideBefore());
+document
+	.getElementById("loadLogsBeforeButton")
+	.addEventListener("mousedown", () => loadLogsBefore());
 
 let historyDate = [];
 let nextDate;
 let lastTime = null;
+let lastLimit;
 
 async function loadLogs(fromDate) {
-	if (lastTime && fromDate === lastTime) return;
+	let limit = parseInt(document.getElementById("logsPerPage").value);
+
+	if (isNaN(limit)) {
+		limit = 50;
+		document.getElementById("logsPerPage").value = limit;
+	}
+
+	if (lastTime && fromDate === lastTime && limit === lastLimit) return;
+
+	lastLimit = limit;
 
 	if (fromDate) {
 		if (lastTime) historyDate.push(lastTime);
@@ -17,12 +32,6 @@ async function loadLogs(fromDate) {
 		historyDate.length = 0;
 	}
 	const filters = window.allCombos.map(combo => combo.filter).filter(filter => !!filter);
-	let limit = parseInt(document.getElementById("logsPerPage").value);
-
-	if (isNaN(limit)) {
-		limit = 50;
-		document.getElementById("logsPerPage").value = limit;
-	}
 	//try {
 	const logs = await ajax("/list", {
 		filters,
@@ -51,6 +60,32 @@ for (let i = 0; i < pageButtons.length; i++) {
 		button.addEventListener("click", () => loadLogs(historyDate.pop()));
 	} else if (action === "next") {
 		button.addEventListener("click", () => loadLogs(nextDate));
+	}
+}
+const logsBefore = document.getElementById("logsBefore");
+logsBefore.addEventListener("input", () => {
+	dateTranslator.fromISOString(logsBefore.value);
+});
+logsBefore.value = new Date().toISOString();
+dateTranslator.fromISOString(logsBefore.value);
+
+function checkLogsDate() {
+	logsBefore.style.display = "inline-block";
+	logsBefore.date = new Date();
+}
+
+function loadLogsAndHideBefore() {
+	logsBefore.style.display = "";
+	dateTranslator.style.display = "";
+	loadLogs();
+}
+
+function loadLogsBefore() {
+	if (logsBefore.style.display !== "inline-block") {
+		logsBefore.style.display = "inline-block";
+		dateTranslator.style.display = "inline";
+	} else {
+		loadLogs(new Date(logsBefore.value).getTime());
 	}
 }
 
