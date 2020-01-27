@@ -5,16 +5,13 @@ module.exports = {
 
 let db;
 
-function connect(mongoose, host) {
-	return new Promise((resolve, reject) => {
-		db = mongoose.createConnection(host, function(err) {
-			if (err) return reject(err);
-			resolve(db);
-		});
-	});
+async function connect (mongoose, host) {
+	db = await mongoose.createConnection(host, {useNewUrlParser: true, useUnifiedTopology: true});
+	mongoose.set("useCreateIndex", true);
+	return db;
 }
 
-async function getCollections() {
+async function getCollections () {
 	const names = await db.db.listCollections().toArray();
 	return names;
 }

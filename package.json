@@ -1,11 +1,15 @@
 {
   "name": "logs-thread",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "This express utility creates log threads in a db and displays them in a HTML GUI. ",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Tie Blumer",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.8.4"
+  }
 }

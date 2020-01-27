@@ -2,15 +2,16 @@ module.exports = {
 	mergeObjects: merge
 };
 
-function merge(reference, affected, clone) {
+function merge (reference, affected, clone) {
 	if (clone) {
 		const cloned = JSON.stringify(JSON.parse(affected));
 		return recursive(reference, cloned);
 	}
+
 	return recursive(reference, affected);
 }
 
-function recursive(reference, affected) {
+function recursive (reference, affected) {
 	for (const k in reference) {
 		const value = reference[k];
 
@@ -21,6 +22,7 @@ function recursive(reference, affected) {
 				if (!affected[k]) {
 					affected[k] = {};
 				}
+
 				recursive(value, affected[k]);
 			}
 		} else {

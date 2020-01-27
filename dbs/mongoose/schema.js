@@ -2,19 +2,8 @@ module.exports = {
 	create: createSchema
 };
 
-function createSchema(mongoose, groups) {
-	const info = {
-		response: {},
-		debug: {},
-		query: {},
-		body: {},
-		thread: {},
-		path: String,
-		method: String,
-		date: { type: Date, default: Date.now, index: -1 },
-		finish: { type: Date, default: Date.now, index: -1 },
-		message: String
-	};
+function createSchema (mongoose, groups) {
+	const info = getInfoTemplate();
 
 	for (const groupName in groups) {
 		const group = groups[groupName];
@@ -24,17 +13,38 @@ function createSchema(mongoose, groups) {
 		const sparse = !group.optional;
 
 		if (multi) {
-			info[groupName] = { type: {}, strict: false, index: { sparse } };
+			info[groupName] = {type: {}, strict: false, index: {sparse}};
 		} else if (["push", "pull"].includes(group.overlap)) {
-			info[groupName] = { type: [type], index: { sparse } };
+			info[groupName] = {type: [type], index: {sparse}};
 		} else {
-			info[groupName] = { type, index: { sparse } };
+			info[groupName] = {type, index: {sparse}};
 		}
 	}
 
+	const schema = ensambleSchema(mongoose, info);
+	return schema;
+}
+
+function getInfoTemplate () {
+	return {
+		response: {},
+		debug   : {},
+		query   : {},
+		body    : {},
+		thread  : {},
+		path    : String,
+		method  : String,
+		date    : {type: Date, default: Date.now, index: -1},
+		finish  : {type: Date, default: Date.now, index: -1},
+		message : String
+	};
+}
+
+function ensambleSchema (mongoose, info) {
 	const schema = new mongoose.Schema(info);
 
-	schema.pre("save", function(next) {
+	schema.pre("save", function (next) {
+		// eslint-disable-next-line no-invalid-this
 		clearRecursive(this);
 		next();
 	});
@@ -42,7 +52,7 @@ function createSchema(mongoose, groups) {
 	return schema;
 }
 
-function clearRecursive(info) {
+function clearRecursive (info) {
 	for (const k in info) {
 		const value = info[k];
 
@@ -51,6 +61,7 @@ function clearRecursive(info) {
 				if (!value.length) {
 					info[k] = undefined;
 				}
+
 				value.forEach(child => clearRecursive(child));
 			} else if (value.constructor === Object) {
 				if (!["response", "debug", "query", "body"].includes(k)) {

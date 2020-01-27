@@ -1,5 +1,5 @@
-// Any database plugin needs to provide functionality for the followinf functions:
-// init, save, load, info, getTimeGroups
+// Any database plugin needs to provide functionality for the following functions:
+// save, load, info, getTimeGroups
 module.exports = {
 	initPlugin,
 	getTimeGroups,
@@ -22,13 +22,13 @@ let ObjectId;
  * and which db and collections to use
  * @async
  */
-async function initPlugin(modules, settings) {
+async function initPlugin (modules, settings) {
 	ObjectId = modules.mongoose.Types.ObjectId;
 	const db = await connectDB(modules.mongoose, settings.db.host);
 	initModels(db, modules.mongoose, settings);
 }
 
-async function getTimeGroups() {
+async function getTimeGroups () {
 	const names = await getCollections();
 	return names.map(name => name.name);
 }
@@ -39,36 +39,36 @@ async function getTimeGroups() {
  * @async
  * @returns the info converted to a mongoose object after it has being saved
  */
-async function saveThread(flattenedThreadInfo) {
-	const model = getModel();
-	const instance = new model(flattenedThreadInfo);
+async function saveThread (flattenedThreadInfo) {
+	const Model = getModel();
+	const instance = new Model(flattenedThreadInfo);
 	await instance.save();
 	return instance;
 }
 
-async function loadThreadsSummaries(filter) {
+async function loadThreadsSummaries (filter) {
 	const model = getModel(filter.db);
 
 	const match = {
-		date: { $lte: filter.before }
+		date: {$lte: filter.before}
 	};
-	filter.filters.forEach(group => (match[group.name] = { $in: group.values }));
+	filter.filters.forEach(group => match[group.name] = {$in: group.values});
 
 	const logs = await model.find(
 		match,
-		{ thread: 0, response: 0, body: 0, query: 0, finish: 0 },
-		{ limit: filter.limit, lean: true, sort: { date: -1 } }
+		{thread: 0, response: 0, body: 0, query: 0, finish: 0},
+		{limit: filter.limit, lean: true, sort: {date: -1}}
 	);
 	return logs;
 }
 
-async function loadThreadFullInfo(data) {
+async function loadThreadFullInfo (data) {
 	const model = getModel(data.db);
 
 	const match = {
-		_id: ObjectId(data._id)
+		_id: new ObjectId(data._id)
 	};
 
-	const log = await model.findOne(match, {}, { lean: true });
+	const log = await model.findOne(match, {}, {lean: true});
 	return log;
 }

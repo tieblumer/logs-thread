@@ -8,14 +8,11 @@ LogsThread generates GUI files under your project's directory to help you visual
 
 Here is a basic example of LogsThread implementation
 ```javascript
-const mongoose = require("mongoose");
 const express = require("express");
-const app = express();
+const logs = require("logs-thread");
 
-const reqLog = require("logs-thread");
-reqLog.setModules({ express, app, mongoose });
-reqLog.setCustomSettings("customSettings.json");
-reqLog.start();
+const app = express();
+app.use(logs.middleware);
 
 app.get("/", function(req, res) {
 	req.thread.log("note").setMsg("Hello World")
@@ -24,6 +21,7 @@ app.get("/", function(req, res) {
 
 app.listen(3000, function() {
 	console.log("Example app listening on port 3000");
+	console.log("go to http://localhost:12970 to see the logs");
 });
 ```
 This is all you need to create, save and visualize logs.
