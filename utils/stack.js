@@ -8,7 +8,7 @@ module.exports = {
  * @param {string} stack an error stack
  * @returns {Array} an array with each of the relevant parts of each valid stack line
  */
-function digest(stack = "", root = "", ignore = ["node_modules"]) {
+function digest (stack = "", root = "", ignore = ["node_modules"]) {
 	const stackLines = stack
 		.replace(/\\/g, "/")
 		.replace(/\n {4}at/g, "\n")
@@ -19,14 +19,16 @@ function digest(stack = "", root = "", ignore = ["node_modules"]) {
 	return stackLines;
 }
 
-function isValidStack(stack, root = "", ignore) {
-	if (ignore.find(folderName => stack.indexOf(folderName) > -1)) return false;
+function isValidStack (stack, root = "", ignore) {
+	if (ignore.find(folderName => stack.indexOf(folderName) > -1)) {
+		return false;
+	}
 
 	const isStackInValidRoot = stack.indexOf(root) > -1;
 	return isStackInValidRoot;
 }
 
-function relevantStackPart(line, root = "") {
+function relevantStackPart (line, root = "") {
 	const parts = line.split(root);
 	parts.shift();
 	const fromRoot = parts.join(root);

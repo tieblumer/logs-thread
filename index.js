@@ -165,7 +165,9 @@ class Thread {
 			throw new Error("Please use middleware instead of middleware().");
 		}
 
-		Thread.start();
+		if (!started) {
+			Thread.start();
+		}
 
 		return middleware;
 	}
@@ -292,7 +294,6 @@ class Thread {
 		}
 
 		return info;
-
 	}
 
 	flatten () {

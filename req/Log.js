@@ -5,7 +5,7 @@ const path = require("path");
 const digestStack = require("../utils/stack").digest;
 
 class Log {
-	constructor(type, custom = {}, message = "", debug = {}) {
+	constructor (type, custom = {}, message = "", debug = {}) {
 		try {
 			this.type = type;
 			this.debug = debug;
@@ -13,7 +13,9 @@ class Log {
 
 			this.setInfo(custom);
 
-			if (message) this.message = message;
+			if (message) {
+				this.message = message;
+			}
 
 			this.stack = digestStack(new Error("").stack, root);
 		} catch (err) {
@@ -22,10 +24,12 @@ class Log {
 			throw err;
 		}
 	}
-	get type() {
+
+	get type () {
 		return this._type;
 	}
-	set type(type) {
+
+	set type (type) {
 		this._type = type;
 		const log = settings.types[type];
 
@@ -35,9 +39,12 @@ class Log {
 			);
 		}
 
-		for (const k in log) this[k] = log[k];
+		for (const k in log) {
+			this[k] = log[k];
+		}
 	}
-	setDebug(data) {
+
+	setDebug (data) {
 		try {
 			this.debug = data;
 			return this;
@@ -47,13 +54,15 @@ class Log {
 			throw err;
 		}
 	}
-	setMsg(text, isImportant) {
+
+	setMsg (text, isImportant) {
 		try {
 			this.message = text;
 
 			if (isImportant && this.parent) {
 				this.parent.setMsg(text);
 			}
+
 			return this;
 		} catch (err) {
 			const log = new Log("unexpected");
@@ -61,7 +70,8 @@ class Log {
 			throw err;
 		}
 	}
-	setInfo(info) {
+
+	setInfo (info) {
 		try {
 			for (const groupName in info) {
 				const group = settings.groups[groupName];
@@ -71,6 +81,7 @@ class Log {
 						`${groupName} is not a valid group. Please add it to your logsThread custom settings or check for typos`
 					);
 				}
+
 				const value = info[groupName];
 
 				if (Array.isArray(value)) {
@@ -86,8 +97,10 @@ class Log {
 						`${value} is not a valid option for ${groupName} group. Please add it to your logsThread custom settings or check for typos`
 					);
 				}
+
 				this[groupName] = info[groupName];
 			}
+
 			return this;
 		} catch (err) {
 			this.type = "unexpected";
@@ -95,25 +108,29 @@ class Log {
 			throw err;
 		}
 	}
+
 	/**
 	 * Takes an instance of Error or logsThread Log and adds its relevant parts into this log
 	 * @param {Error|Log} error  an instance of Error or logsThread Log ( the value returned by req.log() )
 	 */
-	error(error) {
+	error (error) {
 		if (this.type === "unexpected" && this.parent) {
 			this.parent.setMsg(error.message);
 		}
+
 		this.message = error.message;
 		this.stack = digestStack(error.stack, root);
 		return this;
 	}
+
 	/**
 	 * throw this Log, interrupting the normal flow of the function
 	 */
-	throw() {
+	throw () {
 		throw this;
 	}
-	req(req, endpoint, method) {
+
+	req (req, endpoint, method) {
 		try {
 			this.path = req.path;
 			return this;
@@ -125,9 +142,9 @@ class Log {
 	}
 }
 
-Log.setup = function(_settings) {
+Log.setup = function (_settings) {
 	settings = _settings;
-	root = path.join(process.mainModule.paths[0], "../", settings.stackRoot);
+	root = path.join(process.mainModule.paths[0], "../", settings.stackRoot).split("\\").join("/");
 };
 
 module.exports = Log;

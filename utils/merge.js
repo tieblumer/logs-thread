@@ -3,15 +3,19 @@ module.exports = {
 };
 
 function merge (reference, affected, clone) {
+	const singleObjects = [];
+
 	if (clone) {
 		const cloned = JSON.stringify(JSON.parse(affected));
-		return recursive(reference, cloned);
+		return recursive(reference, cloned, singleObjects);
 	}
 
-	return recursive(reference, affected);
+	return recursive(reference, affected, singleObjects);
 }
 
-function recursive (reference, affected) {
+function recursive (reference, affected, singleObjects) {
+	singleObjects.push(reference);
+
 	for (const k in reference) {
 		const value = reference[k];
 
@@ -23,7 +27,9 @@ function recursive (reference, affected) {
 					affected[k] = {};
 				}
 
-				recursive(value, affected[k]);
+				if (!singleObjects.includes(value)) {
+					recursive(value, affected[k], singleObjects);
+				}
 			}
 		} else {
 			affected[k] = value;

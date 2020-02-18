@@ -1,7 +1,7 @@
 module.exports = {
 	db: {
-		type: "mongoose",
-		host: "mongodb://localhost:27017/logsThread",
+		type : "mongoose",
+		host : "mongodb://localhost:27017/logsThread",
 		group: "week" // day, week, month, year, none
 	},
 	GUI: {
@@ -9,31 +9,36 @@ module.exports = {
 		root: "./logsThread/"
 	},
 	express: {
+		socket: {
+			log      : ["method", "path", "query", "response", "time", "stack"],
+			blackList: [],
+			whiteList: []
+		},
 		get: {
-			log: ["method", "path", "query", "response", "time", "stack"],
+			log      : ["method", "path", "query", "response", "time", "stack"],
 			blackList: [],
 			whiteList: []
 		},
 		post: {
-			log: ["method", "path", "query", /*"body",*/ "response", "time", "stack"],
+			log      : ["method", "path", "query", /*"body",*/ "response", "time", "stack"],
 			blackList: [],
 			whiteList: []
 		}
 	},
 	stackRoot: "./",
-	groups: {
-		type: { options: [], overlap: "push", optional: false }, // autofill from settings.types[k]
-		level: { options: ["error", "warn", "log"], overlap: "minIndex" },
-		importance: { options: ["high", "normal", "low"], overlap: "minIndex" }
+	groups   : {
+		type      : {options: [], overlap: "push", optional: false}, // autofill from settings.types[k]
+		level     : {options: ["error", "warn", "log"], overlap: "minIndex"},
+		importance: {options: ["high", "normal", "low"], overlap: "minIndex"}
 	},
 	types: {
 		note: {
-			level: "log",
+			level     : "log",
 			importance: "normal"
 		},
 		unexpected: {
-			message: "unexpected error",
-			level: "error",
+			message   : "unexpected error",
+			level     : "error",
 			importance: "high"
 		}
 	}
